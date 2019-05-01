@@ -1,71 +1,66 @@
 .logo {
-	width: 200px;
-	height: 200px;
-	margin-top: 2%;
+  width: 200px;
+  height: 200px;
+  margin-top: 2%;
 }
 
 .lcolor {
-	color: #D91B5B;
+  color: #d91b5b;
 }
 
 .btns {
-	margin-top: 1%
+  margin-top: 1%;
 }
 
 #note {
-	border: 2px dotted black;
-	padding-bottom: 7px;
-	width: 60%;
-	margin-bottom: 1%;
+  border: 2px dotted black;
+  padding-bottom: 7px;
+  width: 60%;
+  margin-bottom: 1%;
 }
 
 #note:hover {
-	border: 2px dashed #D91B5B;
+  border: 2px dashed #d91b5b;
 }
 
 .header {
-	font-family: Francois One;
+  font-family: Francois One;
 }
 
 .list-group-item {
-	font-family: Noticia Text;
+  font-family: Noticia Text;
 }
 
 /*Tooltip css */
 
-.tooltip {
-	position: relative;
+.new-class .tooltiptext {
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 1.2rem 0.8rem;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: -100%;
+  /* margin-left: -30px; */
+  opacity: 0;
+  transition: opacity 0.3s;
 }
 
-.tooltip .tooltiptext {
-	visibility: hidden;
-	width: 120px;
-	background-color: #555;
-	color: #fff;
-	text-align: center;
-	border-radius: 6px;
-	padding: 5px 0;
-	position: absolute;
-	z-index: 1;
-	bottom: 125%;
-	left: 50%;
-	margin-left: -60px;
-	opacity: 0;
-	transition: opacity 0.3s;
+.new-class .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
 }
 
-.tooltip .tooltiptext::after {
-	content: "";
-	position: absolute;
-	top: 100%;
-	left: 50%;
-	margin-left: -5px;
-	border-width: 5px;
-	border-style: solid;
-	border-color: #555 transparent transparent transparent;
-}
-
-.tooltip:hover .tooltiptext {
-	visibility: visible;
-	opacity: 1;
+.new-class:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
 }
