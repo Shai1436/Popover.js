@@ -289,6 +289,7 @@ const Selection = (function () {
 
     function addPopoverButton(buttonConfig) {
       popOverButtonConfig[buttonConfig.name] = buttonConfig;
+      popoverButtonOptions[buttonConfig.name] = true;
       return this;
     }
 
