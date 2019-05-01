@@ -165,8 +165,10 @@ const Selection = (function () {
 
     function appendIcons() {
       const div = document.createElement('div');
-      div.style.paddingLeft = "0.5rem";
-      div.style.paddingRight = "0.5rem";
+      div.style.paddingLeft = '0.5rem';
+      div.style.paddingRight = '0.5rem';
+      div.style.paddingTop = '0.2rem';
+      div.style.paddingBottom = '0.2rem';
       let count = 0;
       for (let buttonOption in popoverButtonOptions) {
         if (popoverButtonOptions.hasOwnProperty(buttonOption)) {
@@ -187,7 +189,7 @@ const Selection = (function () {
       const position = selection.getRangeAt(0).getBoundingClientRect();
       const DOCUMENT_SCROLL_TOP =
         window.pageXOffset || document.documentElement.scrollTop || document.body.scrollTop;
-      top = position.top + DOCUMENT_SCROLL_TOP - iconsize - arrowsize;
+      top = position.top + DOCUMENT_SCROLL_TOP - iconsize - arrowsize - 5;
       left = position.left + (position.width - iconsize * _icons.length) / 2;
     }
 
@@ -210,7 +212,7 @@ const Selection = (function () {
         'background-color:' +
         bgcolor +
         ';' +
-        'border-radius:20px;' +
+        'border-radius:10px;' +
         'top:' +
         top +
         'px;' +
