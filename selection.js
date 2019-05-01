@@ -180,6 +180,8 @@ const Selection = (function() {
       const myitems=[{feature:'twitter',call:twitterButton()},{feature:'facebook',call:facebookButton()},{feature:'search',call:searchButton()},{feature:'translate',call:translateButton()},
       {feature:'copy',call:copyButton()},{feature:'speak',call:speakButton()}]
       const div = document.createElement('div');
+      div.style.paddingLeft = "0.5rem";
+      div.style.paddingRight = "0.5rem";
       let count = 0;
       myitems.forEach((item)=>{
         if(menu[item.feature]){
