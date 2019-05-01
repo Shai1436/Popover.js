@@ -157,11 +157,6 @@ const Selection = (function () {
       return null;
     }
 
-    function translateButton() {
-      const tsbtn = new Button(translateConfig.icon, translateConfig.tooltip, translateConfig.handlerFn);
-      return tsbtn;
-    }
-
     function IconStyle() {
       const style = document.createElement('style');
       style.innerHTML = `.selection__icon{fill:${iconcolor};}`;
@@ -173,7 +168,7 @@ const Selection = (function () {
       div.style.paddingLeft = "0.5rem";
       div.style.paddingRight = "0.5rem";
       let count = 0;
-      for (buttonOption in popoverButtonOptions) {
+      for (let buttonOption in popoverButtonOptions) {
         if (popoverButtonOptions.hasOwnProperty(buttonOption)) {
           if (popoverButtonOptions[buttonOption]) {
             div.appendChild(getPopOverButton(buttonOption));
@@ -292,13 +287,17 @@ const Selection = (function () {
       );
     }
 
+    function addPopoverButton(buttonConfig) {
+      popOverButtonConfig[buttonConfig.name] = buttonConfig;
+      return this;
+    }
+
     function configPopoverButtons(options) {
-      popoverButtonOptions.twitter = options.twitter === undefined ? popoverButtonOptions.twitter : options.twitter;
-      popoverButtonOptions.facebook = options.facebook === undefined ? popoverButtonOptions.facebook : options.facebook;
-      popoverButtonOptions.search = options.search === undefined ? popoverButtonOptions.search : options.search;
-      popoverButtonOptions.translate = options.translate === undefined ? popoverButtonOptions.translate : options.translate;
-      popoverButtonOptions.copy = options.copy === undefined ? popoverButtonOptions.copy : options.copy;
-      popoverButtonOptions.speak = options.speak === undefined ? popoverButtonOptions.speak : options.speak;
+      for (let buttonOption in options) {
+        if (options.hasOwnProperty(buttonOption)) {
+          popoverButtonOptions[buttonOption] = options[buttonOption]
+        }
+      }
       return this;
     }
 
@@ -319,6 +318,7 @@ const Selection = (function () {
     return {
       configPopoverButtons: configPopoverButtons,
       configPopover: configPopover,
+      addPopoverButton: addPopoverButton,
       init: init
     };
   }
