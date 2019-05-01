@@ -129,7 +129,7 @@ const Selection = (function () {
   };
 
   function _selection() {
-    const menu = {
+    const popoverButtonOptions = {
       twitter: true,
       facebook: true,
       search: true,
@@ -169,35 +169,19 @@ const Selection = (function () {
     }
 
     function appendIcons() {
-      const myitems = [{
-          feature: 'twitter'
-        },
-        {
-          feature: 'facebook'
-        },
-        {
-          feature: 'search'
-        },
-        {
-          feature: 'translate'
-        },
-        {
-          feature: 'copy'
-        },
-        {
-          feature: 'speak'
-        }
-      ]
       const div = document.createElement('div');
       div.style.paddingLeft = "0.5rem";
       div.style.paddingRight = "0.5rem";
       let count = 0;
-      myitems.forEach((item) => {
-        if (menu[item.feature]) {
-          div.appendChild(getPopOverButton(item.feature));
-          count++;
+      for (buttonOption in popoverButtonOptions) {
+        if (popoverButtonOptions.hasOwnProperty(buttonOption)) {
+          if (popoverButtonOptions[buttonOption]) {
+            div.appendChild(getPopOverButton(buttonOption));
+            count++;
+          }
         }
-      })
+      };
+
       return {
         icons: div,
         length: count
@@ -308,17 +292,17 @@ const Selection = (function () {
       );
     }
 
-    function configButtons(options) {
-      menu.twitter = options.twitter === undefined ? menu.twitter : options.twitter;
-      menu.facebook = options.facebook === undefined ? menu.facebook : options.facebook;
-      menu.search = options.search === undefined ? menu.search : options.search;
-      menu.translate = options.translate === undefined ? menu.translate : options.translate;
-      menu.copy = options.copy === undefined ? menu.copy : options.copy;
-      menu.speak = options.speak === undefined ? menu.speak : options.speak;
+    function configPopoverButtons(options) {
+      popoverButtonOptions.twitter = options.twitter === undefined ? popoverButtonOptions.twitter : options.twitter;
+      popoverButtonOptions.facebook = options.facebook === undefined ? popoverButtonOptions.facebook : options.facebook;
+      popoverButtonOptions.search = options.search === undefined ? popoverButtonOptions.search : options.search;
+      popoverButtonOptions.translate = options.translate === undefined ? popoverButtonOptions.translate : options.translate;
+      popoverButtonOptions.copy = options.copy === undefined ? popoverButtonOptions.copy : options.copy;
+      popoverButtonOptions.speak = options.speak === undefined ? popoverButtonOptions.speak : options.speak;
       return this;
     }
 
-    function configLook(options) {
+    function configPopover(options) {
       hideArrow = options.hideArrow === undefined ? hideArrow : options.hideArrow;
       showTooltip = options.showTooltip === undefined ? showTooltip : options.showTooltip;
       bgcolor = options.backgroundColor || '#333';
@@ -333,8 +317,8 @@ const Selection = (function () {
     }
 
     return {
-      configButtons: configButtons,
-      configLook: configLook,
+      configPopoverButtons: configPopoverButtons,
+      configPopover: configPopover,
       init: init
     };
   }
