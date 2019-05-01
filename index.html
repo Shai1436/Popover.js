@@ -74,16 +74,20 @@
 <script type="text/javascript" src="selection.js"></script>
 <script type="text/javascript">
 	var selection = new Selection();
-	selection.config({
-		facebook: true,
-		twitter: true,
-		search: true,
-		copy: true,
-		speak: true,
-		translate: true,
-		backgroundColor: 'crimson',
-		iconColor: '#fff',
-	}).init();
+	selection.configButtons({
+			facebook: true,
+			twitter: true,
+			search: true,
+			copy: true,
+			speak: true,
+			translate: true
+		})
+		.configLook({
+			backgroundColor: 'crimson',
+			iconColor: '#fff',
+			showTooltip: true
+		})
+		.init();
 </script>
 
 </html>

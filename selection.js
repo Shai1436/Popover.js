@@ -1,5 +1,6 @@
 const Selection = (function () {
   let text = '';
+  let showTooltip = true;
 
   function copyTextToClipboard(text) {
     let textArea = document.createElement('textarea');
@@ -134,14 +135,13 @@ const Selection = (function () {
       search: true,
       copy: true,
       speak: true,
-      translate: true,
-      disable: false
+      translate: true
     };
 
     let selection = '';
     let bgcolor = 'crimson';
     let iconcolor = '#fff';
-
+    let hideArrow = false;
     let _icons = {};
     let arrowsize = 5;
     let buttonmargin = 7 * 2;
@@ -267,7 +267,7 @@ const Selection = (function () {
         'width:0;' +
         'height:0;';
 
-      if (!menu.disable) {
+      if (!hideArrow) {
         div.appendChild(arrow);
       }
 
@@ -308,15 +308,19 @@ const Selection = (function () {
       );
     }
 
-    function config(options) {
+    function configButtons(options) {
       menu.twitter = options.twitter === undefined ? menu.twitter : options.twitter;
       menu.facebook = options.facebook === undefined ? menu.facebook : options.facebook;
       menu.search = options.search === undefined ? menu.search : options.search;
       menu.translate = options.translate === undefined ? menu.translate : options.translate;
       menu.copy = options.copy === undefined ? menu.copy : options.copy;
       menu.speak = options.speak === undefined ? menu.speak : options.speak;
-      menu.disable = options.disable === undefined ? menu.disable : options.disable;
+      return this;
+    }
 
+    function configLook(options) {
+      hideArrow = options.hideArrow === undefined ? hideArrow : options.hideArrow;
+      showTooltip = options.showTooltip === undefined ? showTooltip : options.showTooltip;
       bgcolor = options.backgroundColor || '#333';
       iconcolor = options.iconColor || '#fff';
       return this;
@@ -329,7 +333,8 @@ const Selection = (function () {
     }
 
     return {
-      config: config,
+      configButtons: configButtons,
+      configLook: configLook,
       init: init
     };
   }
@@ -342,10 +347,13 @@ const Selection = (function () {
     btn.onclick = function () {
       clickFn.call(popOverButtonConfig);
     }
-    const tooltip = document.createElement('span');
-    tooltip.className = 'tooltiptext';
-    tooltip.innerText = tooltipText;
-    btn.appendChild(tooltip);
+    if (showTooltip) {
+      const tooltip = document.createElement('span');
+      tooltip.className = 'tooltiptext';
+      tooltip.innerText = tooltipText;
+      btn.appendChild(tooltip);
+    }
+
     btn.onmouseover = function () {
       this.style.transform = 'scale(1.2)';
     };
