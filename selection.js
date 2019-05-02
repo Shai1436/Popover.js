@@ -205,6 +205,8 @@ const Selection = (function () {
     function moveTooltip(tooltip) {
       let left = -1 * (tooltip.offsetWidth/2 - 12);
       tooltip.style.left = `${left}px`;
+      if(!popoverConfig.iconTransition)
+        tooltip.style.fontSize = "16px";
     }
 
     function setTooltipPosition(icons) {
@@ -214,7 +216,7 @@ const Selection = (function () {
       });
     }
     
-    function drawTooltip() {
+    function drawPopover() {
       _icons = appendIcons();
       setPopoverPosition();
 
@@ -297,7 +299,7 @@ const Selection = (function () {
             if (hasSelection()) {
               selection = window.getSelection();
               popoverObject.selectedText = selection.toString();
-              drawTooltip();
+              drawPopover();
             }
           }, 10);
         },
