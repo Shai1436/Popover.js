@@ -1,5 +1,11 @@
 const Selection = (function () {
-  let showTooltip = true;
+  const popoverConfig = {
+    showTooltip: true,
+    bgColor: 'cornflowerblue',
+    iconColor: '#fff',
+    hideArrow: false,
+    popoverShadow: '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);'
+  }
   function copyTextToClipboard(text) {
     let textArea = document.createElement('textarea');
     textArea.style.position = 'fixed';
@@ -137,9 +143,9 @@ const Selection = (function () {
     };
 
     let selection = '';
-    let bgcolor = 'crimson';
-    let iconcolor = '#fff';
-    let hideArrow = false;
+    //let bgColor = 'crimson';
+    //let iconColor = '#fff';
+    //let hideArrow = false;
     let _icons = {};
     let arrowsize = 5;
     let buttonmargin = 7 * 2;
@@ -157,7 +163,7 @@ const Selection = (function () {
 
     function IconStyle() {
       const style = document.createElement('style');
-      style.innerHTML = `.selection__icon{fill:${iconcolor};}`;
+      style.innerHTML = `.selection__icon{fill:${popoverConfig.iconColor};}`;
       document.body.appendChild(style);
     }
 
@@ -220,7 +226,7 @@ const Selection = (function () {
         'line-height:0;' +
         'position:absolute;' +
         'background-color:' +
-        bgcolor +
+        popoverConfig.bgColor +
         ';' +
         'border-radius:10px;' +
         'top:' +
@@ -230,7 +236,7 @@ const Selection = (function () {
         left +
         'px;' +
         'transition:all 0.2s ease-in-out;' +
-        'box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);' +
+        'box-shadow:' + popoverConfig.popoverShadow +
         'z-index:99999;';
 
       div.appendChild(_icons.icons);
@@ -247,7 +253,7 @@ const Selection = (function () {
         'border-top:' +
         arrowsize +
         'px solid ' +
-        bgcolor +
+        popoverConfig.bgColor +
         ';' +
         'bottom:-' +
         (arrowsize - 1) +
@@ -258,12 +264,12 @@ const Selection = (function () {
         'width:0;' +
         'height:0;';
 
-      if (!hideArrow) {
+      if (!popoverConfig.hideArrow) {
         div.appendChild(arrow);
       }
 
       document.body.appendChild(div);
-      if(showTooltip)
+      if(popoverConfig.showTooltip)
         setTooltipPosition(_icons.icons);
     }
 
@@ -317,10 +323,14 @@ const Selection = (function () {
     }
 
     function configPopover(options) {
-      hideArrow = options.hideArrow === undefined ? hideArrow : options.hideArrow;
-      showTooltip = options.showTooltip === undefined ? showTooltip : options.showTooltip;
-      bgcolor = options.backgroundColor || '#333';
-      iconcolor = options.iconColor || '#fff';
+      for (let popoverOption in options) {
+        if (options.hasOwnProperty(popoverOption) && popoverConfig.hasOwnProperty(popoverOption)) {
+          if(options[popoverOption] === false && typeof popoverConfig[popoverOption] === 'boolean')
+            popoverConfig[popoverOption] = options[popoverOption];
+          else if(options[popoverOption])
+            popoverConfig[popoverOption] = options[popoverOption];
+        }
+      }
       return this;
     }
 
@@ -346,7 +356,7 @@ const Selection = (function () {
     btn.onclick = function () {
       clickFn.call(popoverObject);
     }
-    if (showTooltip) {
+    if (popoverConfig.showTooltip) {
       const tooltip = document.createElement('span');
       tooltip.className = 'tooltiptext';
       tooltip.innerText = tooltipText;
