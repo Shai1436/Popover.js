@@ -4,7 +4,8 @@ const Selection = (function () {
     bgColor: 'cornflowerblue',
     iconColor: '#fff',
     hideArrow: false,
-    popoverShadow: '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);'
+    popoverShadow: '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);',
+    iconTransition: true
   }
   function copyTextToClipboard(text) {
     let textArea = document.createElement('textarea');
@@ -143,9 +144,6 @@ const Selection = (function () {
     };
 
     let selection = '';
-    //let bgColor = 'crimson';
-    //let iconColor = '#fff';
-    //let hideArrow = false;
     let _icons = {};
     let arrowsize = 5;
     let buttonmargin = 7 * 2;
@@ -348,10 +346,17 @@ const Selection = (function () {
     };
   }
 
+  function getIconTransition() {
+    if(popoverConfig.iconTransition)
+      return 'transition: all .2s ease-in-out;';
+    return '';
+  }
+
   function Button(icon, tooltipText, clickFn) {
     const btn = document.createElement('div');
     btn.className = "popover-tooltip";
-    btn.style = 'display:inline-block;' + 'margin:7px;' + 'cursor:pointer;' + 'transition:all .2s ease-in-out;';
+    btn.style = 'display:inline-block;' + 'margin:7px;' + 'cursor:pointer;' +
+    getIconTransition();
     btn.innerHTML = icon;
     btn.onclick = function () {
       clickFn.call(popoverObject);
@@ -364,11 +369,15 @@ const Selection = (function () {
     }
 
     btn.onmouseover = function () {
-      this.style.transform = 'scale(1.2)';
+      if(popoverConfig.iconTransition)
+        this.style.transform = 'scale(1.2)';
+      else
+        this.style.transform = 'scale(1)';
     };
     btn.onmouseout = function () {
-      this.style.transform = 'scale(1)';
+        this.style.transform = 'scale(1)';
     };
+
     return btn;
   }
 
