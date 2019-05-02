@@ -1,7 +1,5 @@
 const Selection = (function () {
-  let text = '';
   let showTooltip = true;
-
   function copyTextToClipboard(text) {
     let textArea = document.createElement('textarea');
     textArea.style.position = 'fixed';
@@ -58,14 +56,14 @@ const Selection = (function () {
     return language.split('-')[0];
   }
 
-  const popOverButtonConfig = {
+  const popoverObject = {
     twitter: {
       url: 'https://twitter.com/intent/tweet?text=',
       tooltip: 'Tweet',
       icon: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" class="selection__icon"><path d="M8.2,20.2c6.5,0,11.7-5.2,11.8-11.6c0-0.1,0-0.1,0-0.2c0-0.2,0-0.4,0-0.5c0.8-0.6,1.5-1.3,2.1-2.2c-0.8,0.3-1.6,0.6-2.4,0.7c0.9-0.5,1.5-1.3,1.8-2.3c-0.8,0.5-1.7,0.8-2.6,1c-1.6-1.7-4.2-1.7-5.9-0.1c-1.1,1-1.5,2.5-1.2,3.9C8.5,8.7,5.4,7.1,3.3,4.6c-1.1,1.9-0.6,4.3,1.3,5.5c-0.7,0-1.3-0.2-1.9-0.5l0,0c0,2,1.4,3.7,3.3,4.1c-0.6,0.2-1.2,0.2-1.9,0.1c0.5,1.7,2.1,2.8,3.9,2.9c-1.7,1.4-3.9,2-6.1,1.7C3.8,19.5,6,20.2,8.2,20.2"/></svg>',
       handlerFn: function () {
         const url = window.location.href;
-        popupwindow(this.twitter.url + encodeURIComponent(text) + ' ' + url, 'Share', 550, 295);
+        popupwindow(this.twitter.url + encodeURIComponent(this.selectedText) + ' ' + url, 'Share', 550, 295);
         return false;
       }
     },
@@ -79,7 +77,7 @@ const Selection = (function () {
         if (sharelink.substring(0, 4) !== 'http') {
           sharelink = 'http://www.demourl.com';
         }
-        finalurl += text + '&u=' + sharelink;
+        finalurl += this.selectedText + '&u=' + sharelink;
         popupwindow(finalurl, 'Share', 600, 500);
       }
     },
@@ -88,22 +86,22 @@ const Selection = (function () {
       tooltip: 'Search',
       icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" enable-background="new 0 0 24 24" width="24" height="24" class="selection__icon"><path d="M23.111 20.058l-4.977-4.977c.965-1.52 1.523-3.322 1.523-5.251 0-5.42-4.409-9.83-9.829-9.83-5.42 0-9.828 4.41-9.828 9.83s4.408 9.83 9.829 9.83c1.834 0 3.552-.505 5.022-1.383l5.021 5.021c2.144 2.141 5.384-1.096 3.239-3.24zm-20.064-10.228c0-3.739 3.043-6.782 6.782-6.782s6.782 3.042 6.782 6.782-3.043 6.782-6.782 6.782-6.782-3.043-6.782-6.782zm2.01-1.764c1.984-4.599 8.664-4.066 9.922.749-2.534-2.974-6.993-3.294-9.922-.749z"/></svg>',
       handlerFn: function () {
-        popupwindow(this.search.url + encodeURIComponent(text), 'Search', 900, 540);
+        popupwindow(this.search.url + encodeURIComponent(this.selectedText), 'Search', 900, 540);
         return false;
-      }
+      } 
     },
     copy: {
       tooltip: 'Copy',
       icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" enable-background="new 0 0 24 24" width="24" height="24" class="selection__icon"><path d="M18 6v-6h-18v18h6v6h18v-18h-6zm-12 10h-4v-14h14v4h-10v10zm16 6h-14v-14h14v14z"/></svg>',
       handlerFn: function () {
-        copyTextToClipboard(text);
+        copyTextToClipboard(this.selectedText);
       }
     },
     speak: {
       tooltip: 'Speak',
       icon: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" enable-background="new 0 0 24 24" width="24" height="24" class="selection__icon"><path d="M16 11c0 2.209-1.791 4-4 4s-4-1.791-4-4v-7c0-2.209 1.791-4 4-4s4 1.791 4 4v7zm4-2v2c0 4.418-3.582 8-8 8s-8-3.582-8-8v-2h2v2c0 3.309 2.691 6 6 6s6-2.691 6-6v-2h2zm-7 13v-2h-2v2h-4v2h10v-2h-4z"/></svg>',
       handlerFn: function () {
-        let speech = new SpeechSynthesisUtterance(text);
+        let speech = new SpeechSynthesisUtterance(this.selectedText);
         window.speechSynthesis.speak(speech);
       }
     },
@@ -122,14 +120,14 @@ const Selection = (function () {
         '<path id="svg_19" d="m20,18c-0.121,0 -0.242,-0.043 -0.337,-0.131c-0.363,-0.332 -3.558,-3.283 -4.126,-4.681c-0.104,-0.256 0.02,-0.547 0.275,-0.651c0.253,-0.103 0.547,0.019 0.651,0.275c0.409,1.007 2.936,3.459 3.875,4.319c0.204,0.187 0.217,0.502 0.031,0.707c-0.099,0.107 -0.234,0.162 -0.369,0.162z"/>' +
         '</svg>',
       handlerFn: function () {
-        popupwindow(this.translate.url + getBrowserLanguage() + '/' + text, 'Translate', 900, 540);
+        popupwindow(this.translate.url + getBrowserLanguage() + '/' + this.selectedText, 'Translate', 900, 540);
         return false;
       }
     }
   };
 
   function _selection() {
-    const popoverButtonOptions = {
+    const popoverButtonConfig = {
       twitter: true,
       facebook: true,
       search: true,
@@ -150,8 +148,8 @@ const Selection = (function () {
     let left = 0;
 
     function getPopOverButton(buttonName) {
-      if (popOverButtonConfig.hasOwnProperty(buttonName)) {
-        const buttonConfig = popOverButtonConfig[buttonName];
+      if (popoverObject.hasOwnProperty(buttonName)) {
+        const buttonConfig = popoverObject[buttonName];
         return new Button(buttonConfig.icon, buttonConfig.tooltip, buttonConfig.handlerFn);
       }
       return null;
@@ -170,9 +168,9 @@ const Selection = (function () {
       div.style.paddingTop = '0.2rem';
       div.style.paddingBottom = '0.2rem';
       let count = 0;
-      for (let buttonOption in popoverButtonOptions) {
-        if (popoverButtonOptions.hasOwnProperty(buttonOption)) {
-          if (popoverButtonOptions[buttonOption]) {
+      for (let buttonOption in popoverButtonConfig) {
+        if (popoverButtonConfig.hasOwnProperty(buttonOption)) {
+          if (popoverButtonConfig[buttonOption]) {
             div.appendChild(getPopOverButton(buttonOption));
             count++;
           }
@@ -271,7 +269,7 @@ const Selection = (function () {
             if (hasTooltipDrawn()) {
               if (hasSelection()) {
                 selection = window.getSelection();
-                text = selection.toString();
+                popoverObject.selectedText = selection.toString();
                 moveTooltip();
                 return;
               } else {
@@ -280,7 +278,7 @@ const Selection = (function () {
             }
             if (hasSelection()) {
               selection = window.getSelection();
-              text = selection.toString();
+              popoverObject.selectedText = selection.toString();
               drawTooltip();
             }
           }, 10);
@@ -290,15 +288,15 @@ const Selection = (function () {
     }
 
     function addPopoverButton(buttonConfig) {
-      popOverButtonConfig[buttonConfig.name] = buttonConfig;
-      popoverButtonOptions[buttonConfig.name] = true;
+      popoverObject[buttonConfig.name] = buttonConfig;
+      popoverButtonConfig[buttonConfig.name] = true;
       return this;
     }
 
     function configPopoverButtons(options) {
       for (let buttonOption in options) {
         if (options.hasOwnProperty(buttonOption)) {
-          popoverButtonOptions[buttonOption] = options[buttonOption]
+          popoverButtonConfig[buttonOption] = options[buttonOption]
         }
       }
       return this;
@@ -332,7 +330,7 @@ const Selection = (function () {
     btn.style = 'display:inline-block;' + 'margin:7px;' + 'cursor:pointer;' + 'transition:all .2s ease-in-out;';
     btn.innerHTML = icon;
     btn.onclick = function () {
-      clickFn.call(popOverButtonConfig);
+      clickFn.call(popoverObject);
     }
     if (showTooltip) {
       const tooltip = document.createElement('span');

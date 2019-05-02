@@ -71,7 +71,7 @@
 
 </body>
 <!-- <script type="text/javascript" src="index.js"></script> -->
-<script type="text/javascript" src="selection.min.js"></script>
+<script type="text/javascript" src="selection.js"></script>
 <script type="text/javascript">
 	var obj = {
 		name: 'new_twitter',
@@ -84,7 +84,7 @@
 </svg>`,
 		handlerFn: function () {
 			const url = window.location.href;
-			alert(this.new_twitter.name);
+			console.log(this.selectedText);
 			//popupwindow(this.twitter.url + encodeURIComponent(text) + '' + url, 'Share', 550, 295);
 			return false;
 		}
