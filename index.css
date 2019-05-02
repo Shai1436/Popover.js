@@ -33,7 +33,7 @@
 
 /*Tooltip css */
 
-.new-class .tooltiptext {
+.popover-tooltip .tooltiptext {
   visibility: hidden;
   background-color: #555;
   color: #fff;
@@ -42,14 +42,13 @@
   padding: 1.2rem 0.8rem;
   position: absolute;
   z-index: 1;
-  bottom: 125%;
-  left: -100%;
+  bottom: 130%;
   /* margin-left: -30px; */
   opacity: 0;
   transition: opacity 0.3s;
 }
 
-.new-class .tooltiptext::after {
+.popover-tooltip .tooltiptext::after {
   content: "";
   position: absolute;
   top: 100%;
@@ -60,7 +59,7 @@
   border-color: #555 transparent transparent transparent;
 }
 
-.new-class:hover .tooltiptext {
+.popover-tooltip:hover .tooltiptext {
   visibility: visible;
   opacity: 1;
 }

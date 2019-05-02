@@ -183,7 +183,7 @@ const Selection = (function () {
       };
     }
 
-    function setTooltipPosition() {
+    function setPopoverPosition() {
       const position = selection.getRangeAt(0).getBoundingClientRect();
       const DOCUMENT_SCROLL_TOP =
         window.pageXOffset || document.documentElement.scrollTop || document.body.scrollTop;
@@ -191,16 +191,28 @@ const Selection = (function () {
       left = position.left + (position.width - iconsize * _icons.length) / 2;
     }
 
-    function moveTooltip() {
-      setTooltipPosition();
+    function movePopover() {
+      setPopoverPosition();
       let tooltip = document.querySelector('.selection');
       tooltip.style.top = `${top}px`;
       tooltip.style.left = `${left}px`;
     }
 
+    function moveTooltip(tooltip) {
+      let left = -1 * (tooltip.offsetWidth/2 - 12);
+      tooltip.style.left = `${left}px`;
+    }
+
+    function setTooltipPosition(icons) {
+      let toolTips = icons.querySelectorAll('span');
+      toolTips.forEach(tooltip => {
+        moveTooltip(tooltip);
+      });
+    }
+    
     function drawTooltip() {
       _icons = appendIcons();
-      setTooltipPosition();
+      setPopoverPosition();
 
       const div = document.createElement('div');
       div.className = 'selection';
@@ -251,6 +263,8 @@ const Selection = (function () {
       }
 
       document.body.appendChild(div);
+      if(showTooltip)
+        setTooltipPosition(_icons.icons);
     }
 
     function attachEvents() {
@@ -270,7 +284,7 @@ const Selection = (function () {
               if (hasSelection()) {
                 selection = window.getSelection();
                 popoverObject.selectedText = selection.toString();
-                moveTooltip();
+                movePopover();
                 return;
               } else {
                 document.querySelector('.selection').remove();
@@ -326,7 +340,7 @@ const Selection = (function () {
 
   function Button(icon, tooltipText, clickFn) {
     const btn = document.createElement('div');
-    btn.className = "new-class";
+    btn.className = "popover-tooltip";
     btn.style = 'display:inline-block;' + 'margin:7px;' + 'cursor:pointer;' + 'transition:all .2s ease-in-out;';
     btn.innerHTML = icon;
     btn.onclick = function () {
