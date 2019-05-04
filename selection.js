@@ -1,7 +1,7 @@
 const TextPopover = (function () {
   const popoverConfig = {
     showTooltip: true,
-    bgColor: 'cornflowerblue',
+    bgColor: 'crimson',
     iconColor: '#fff',
     hideArrow: false,
     popoverShadow: '0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);',
