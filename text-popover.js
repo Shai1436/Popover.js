@@ -162,10 +162,11 @@ const TextPopover = (function () {
     function IconStyle() {
       const style = document.createElement('style');
       style.innerHTML = `.text_popover_icon{
-          fill: ${popoverConfig.iconColor};
-          color: ${popoverConfig.iconColor};
+          fill: ${popoverConfig.iconColor}!important;
+          color: ${popoverConfig.iconColor}!important;
           height: 24px!important;
           width: 24px!important;
+          vertical-align: middle!important;
         }`;
       document.body.appendChild(style);
     }
@@ -222,7 +223,7 @@ const TextPopover = (function () {
         moveTooltip(tooltip);
       });
     }
-    
+
     function drawPopover() {
       _icons = appendIcons();
       setPopoverPosition();
