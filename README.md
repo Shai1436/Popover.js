@@ -48,6 +48,29 @@ To get started with Selection.js, download the [Script](https://raw.githubuserco
     .init();
 </script>
 ```
+### Adding a custom popover action
+
+```html
+<script src="text-popover.min.js"></script>
+<script>
+  var customAction = {
+		name: 'save_notes', //name of the action
+		tooltip: 'Save_Notes', //currently only single word tooltip is supported
+		custom_attr: 'other details', //you can add any number of custom attributes
+		icon: `<i class="far fa-edit text_popover_icon"></i>`, // you can use fontawesome or other icons or you can paste the icon's svg string directly. You just have to add the 'text_popover_icon' class. In some cases, the icon might not be formatted correctly. So you have debug and add appropriate styles.
+		handlerFn: function () {
+			console.log(this.selectedText); //stores the selected text.
+      console.log(this.save_notes.custom_attr); //this.[customAction.name] refers to customAction object.
+			//code to save the selected text for the user
+			return false;
+		}
+	};
+	var popover = new TextPopover();
+  popover.addPopoverButton(customAction)
+  .init();
+
+</script>
+```
 
 # Result
 
