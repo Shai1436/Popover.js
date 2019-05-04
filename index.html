@@ -68,33 +68,12 @@
 
 	</div>
 
-
 </body>
 <!-- <script type="text/javascript" src="index.js"></script> -->
 <script type="text/javascript" src="text-popover.js"></script>
 <script type="text/javascript">
-	var customAction = {
-		name: 'save_notes',
-		tooltip: 'Save_Notes',
-		'custom_attr': 'other details',
-		icon: `<i class="far fa-edit text_popover_icon"></i>`,
-		handlerFn: function () {
-			console.log(this.selectedText);
-			console.log(this.save_notes.custom_attr);
-			//saves the selected text for the user
-			return false;
-		}
-	};
 	var popover = new TextPopover();
-	popover.addPopoverButton(customAction)
-		.configPopover({
-			bgColor: 'crimson',
-			iconColor: 'white',
-			hideArrow: false,
-			showTooltip: true,
-			iconTransition: false
-		})
-		.init();
+	popover.init();
 </script>
 
 </html>
