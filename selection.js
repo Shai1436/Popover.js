@@ -1,4 +1,4 @@
-const Selection = (function () {
+const TextPopover = (function () {
   const popoverConfig = {
     showTooltip: true,
     bgColor: 'cornflowerblue',
@@ -203,10 +203,12 @@ const Selection = (function () {
     }
 
     function moveTooltip(tooltip) {
+      if(!popoverConfig.iconTransition){
+        tooltip.style.transform = "scale(1.2)";
+        tooltip.style.bottom = "150%";
+      }
       let left = -1 * (tooltip.offsetWidth/2 - 12);
       tooltip.style.left = `${left}px`;
-      if(!popoverConfig.iconTransition)
-        tooltip.style.fontSize = "16px";
     }
 
     function setTooltipPosition(icons) {
