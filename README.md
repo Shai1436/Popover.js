@@ -11,7 +11,7 @@
 
 ## Usage
 
-To get started with Selection.js, download the [Script](https://raw.githubusercontent.com/Shai1436/Popover.js/master/selection.min.js) and add it to your project
+To get started with Selection.js, download the [Script](https://raw.githubusercontent.com/Shai1436/TextPopover.js/master/text-popover.min.js) and add it to your project
 
 ### Basic Usage
 
@@ -75,5 +75,5 @@ To get started with Selection.js, download the [Script](https://raw.githubuserco
 # Result
 
 <p align="center">
-<img alt="Demo" src="https://user-images.githubusercontent.com/29385192/38880290-f5e173ce-4282-11e8-9447-6cab91540735.PNG">
+<img alt="Screenshot for the popover" src="https://raw.githubusercontent.com/Shai1436/TextPopover.js/master/popover-image.png">
 </p>
