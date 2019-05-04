@@ -1,8 +1,8 @@
-<!-- <p align="center">
-  <a href="https://prateekkalra.github.io/Selection-js"><img alt="SelectionJS" src="./logo.png" width="150px"></a>
-</p> -->
 <p align="center">
-  A javascript snippet which provides a highly customizable popover with a set of options over the selected portion of text.
+  <a href="https://github.com/Shai1436/TextPopover.js"><img alt="Text Popover" src="./logo.png" width="100px"></a>
+</p>
+<p align="center">
+  A javascript snippet which provides a highly customizable popover with a set of options, over the selected portion of text.
 </p>
 
  <p align="center">
